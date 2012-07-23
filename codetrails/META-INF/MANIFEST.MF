@@ -2,17 +2,19 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Code Trails
 Bundle-SymbolicName: codetrails;singleton:=true
-Bundle-Version: 0.4
+Bundle-Version: 0.5
 Bundle-Activator: codetrails.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.core.resources;bundle-version="3.7.0",
+ org.eclipse.core.resources;bundle-version="3.6.0",
  org.eclipse.ui.ide,
- org.eclipse.jdt.core;bundle-version="3.7.0",
- org.eclipse.jdt.ui;bundle-version="3.7.0",
- org.eclipse.jface.text;bundle-version="3.7.0",
+ org.eclipse.jdt.core;bundle-version="3.6.0",
+ org.eclipse.jdt.ui;bundle-version="3.6.0",
+ org.eclipse.jface.text;bundle-version="3.6.0",
  org.eclipse.ltk.core.refactoring;bundle-version="3.5.0",
  org.eclipse.ltk.ui.refactoring;bundle-version="3.6.0",
  org.eclipse.ui.navigator;bundle-version="3.5.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: lib/miglayout-4.0-swt.jar,
+ .

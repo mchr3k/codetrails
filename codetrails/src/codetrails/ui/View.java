@@ -2,6 +2,8 @@ package codetrails.ui;
 
 import java.util.Arrays;
 
+import net.miginfocom.swt.MigLayout;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -36,7 +38,12 @@ import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
@@ -76,6 +83,7 @@ public class View extends ViewPart implements ISelectionListener
   private IProject lastProject = null;
   private TreeViewer viewer;
   private ViewContentProvider contentProvider;
+  private Composite labelHolder;
   public enum Direction
   {
     UP,
@@ -85,8 +93,20 @@ public class View extends ViewPart implements ISelectionListener
   @Override
   public void createPartControl(Composite parent)
   {
-    enableTaskTagSettings();
+    parent.setLayout(new FillLayout());
 
+    if (isTaskTagsConfigured())
+    {
+      createUI(parent);
+    }
+    else
+    {
+      createWarning(parent);
+    }
+  }
+
+  private void createUI(Composite parent)
+  {
     // Startup content provider
     contentProvider = new ViewContentProvider();
 
@@ -350,6 +370,52 @@ public class View extends ViewPart implements ISelectionListener
     });
   }
 
+  private void createWarning(Composite parent)
+  {
+    labelHolder = new Composite(parent, SWT.NONE);
+
+    MigLayout labelLayout = new MigLayout("fill", "[grow, align center]", "[grow][][][][grow]");
+    labelHolder.setLayout(labelLayout);
+
+    Label warningLabel1 = new Label(labelHolder, SWT.WRAP | SWT.CENTER);
+    warningLabel1.setText("Warning: Code Trails requires a \"TRAIL\" task tag.");
+    warningLabel1.setLayoutData("cell 0 1, wmin 0");
+
+    Label warningLabel2 = new Label(labelHolder, SWT.WRAP | SWT.CENTER);
+    warningLabel2.setText("Adding this task tag will require a workspace rebuild.");
+    warningLabel2.setLayoutData("cell 0 2, wmin 0");
+
+    Button enableButton = new Button(labelHolder, SWT.NONE);
+    enableButton.setText("Enable Code Trails");
+    enableButton.addSelectionListener(new SelectionAdapter()
+    {
+      @Override
+      public void widgetSelected(SelectionEvent e)
+      {
+        enableTaskTagSettings();
+
+        if (labelHolder != null)
+        {
+          Composite parent = labelHolder.getParent();
+          labelHolder.dispose();
+          labelHolder = null;
+          createPartControl(parent);
+        }
+      }
+    });
+    enableButton.setLayoutData("cell 0 3");
+  }
+
+  private boolean isTaskTagsConfigured()
+  {
+    IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode("/instance/org.eclipse.jdt.core");
+
+    String tagsCfg = prefs.get(JavaCore.COMPILER_TASK_TAGS, "");
+
+    String[] tags = tagsCfg.split(",");
+    return Arrays.asList(tags).contains("TRAIL");
+  }
+
   private void enableTaskTagSettings()
   {
     WorkingCopyManager wcManager = new WorkingCopyManager();
@@ -547,7 +613,15 @@ public class View extends ViewPart implements ISelectionListener
     getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(this);
 
     // Dispose of all of our content
-    contentProvider.dispose();
+    if (contentProvider != null)
+    {
+      contentProvider.dispose();
+    }
+
+    if (labelHolder != null)
+    {
+      labelHolder.dispose();
+    }
 
     super.dispose();
   }
