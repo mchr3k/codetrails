@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/codetrails.feature_0.5.0.jar" id="codetrails.feature" version="0.5">
+   <feature url="features/codetrails.feature_0.6.0.jar" id="codetrails.feature" version="0.6">
       <category name="codetrails.category"/>
    </feature>
    <category-def name="codetrails.category" label="Code Trails"/>

@@ -368,6 +368,9 @@ public class View extends ViewPart implements ISelectionListener
       @Override
       public void partActivated(IWorkbenchPartReference partRef) {/* do nothing*/}
     });
+
+    // Notify the actionBars that we have made changes
+    actionBars.updateActionBars();
   }
 
   private void createWarning(Composite parent)

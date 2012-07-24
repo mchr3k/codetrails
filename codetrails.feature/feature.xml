@@ -2,7 +2,7 @@
 <feature
       id="codetrails.feature"
       label="Code Trails"
-      version="0.5">
+      version="0.6">
 
    <description>
       Adds support for Code Trails
@@ -16,7 +16,7 @@
          id="codetrails"
          download-size="0"
          install-size="0"
-         version="0.5.0"
+         version="0.6.0"
          unpack="false"/>
 
 </feature>
