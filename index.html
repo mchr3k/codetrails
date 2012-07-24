@@ -3,7 +3,7 @@ layout: default
 title: Home
 ---
 
-<h1>The Problem</h1>
+<h2>The Problem</h2>
 When working with a new software codebase it can be very tricky and time consuming to become familiar with the 
 flow of control through the various subcomponents and how this relates to high level operations. Design documents 
 can provide high level overviews of how the code fits together but are likely to become out of date as they are usually 
@@ -11,9 +11,10 @@ stored in separate documents that developers must remember to update at the same
 provides per method, class, package level comments that can provide a lot of low level detail about the code but in a 
 way which fails to highlight the important paths through the code.
 <p> 
-In words it can be hard to see the wood for the trees. 
+In other words it can be hard to see the wood for the trees. 
+<p>
  
-<h1>The Solution</h1>
+<h2>The Solution</h2>
 Code Trails is my attempt to address this problem. Code Trails are made from annotations that are maintained within 
 source code that allow IDE tools to identify key locations within the source code that are part of a Trail and 
 present the relevant code to developers in an intuitive and efficient manner.
@@ -63,8 +64,9 @@ For example a “DataRequest” trail might include the following markers:
 There is no separate metadata/documents to be maintained which makes it more likely that trails will be kept up 
 to date. When a developer is working with source code outside of a Code Trails enabled IDE they can still grep 
 the source code for [TAG to find markers manually.
+<p>
 
-<h1>Installation</h1>
+<h2>Installation</h2>
 
 Code Trails can be installed from the following update site: http://mchr3k-eclipse.appspot.com/
 <p>
@@ -72,8 +74,9 @@ When you first open the Trails view you will see the following warning. Clicking
 rebuild to enable detection of TRAIL task tags.
 <p>
 <img src="img/trailwarn.png" />
+<p>
 
-<h1>References</h1>
+<h2>References</h2>
 
 There are some comparisons which can be made between Code Trails and the approach known as 
 <a href="http://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a> by Donald Knuth. LP refers to
